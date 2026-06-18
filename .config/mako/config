@@ -1,11 +1,21 @@
-background-color=#18181bcc
-text-color=#ffffff
-border-color=#75f1fa
-border-radius=8
-border-size=1
-font=JetBrainsMono Nerd Font Propo 11
-width=350
-height=100
-padding=12
-margin=10
+text-color=#D6DEE7
+border-color=#e39774
+background-color=#060805
+width=420
+height=110
+padding=10
+border-size=2
+font=Liberation Sans 11
+anchor=top-right
+outer-margin=20
 default-timeout=5000
+max-icon-size=32
+
+[app-name=Spotify]
+invisible=1
+
+[mode=do-not-disturb]
+invisible=true
+
+[mode=do-not-disturb app-name=notify-send]
+invisible=false

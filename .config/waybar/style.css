@@ -1,4 +1,5 @@
-@define-color highlight rgba(117, 241, 250, 1);
+@import url("file:///home/alex/.config/waybar/aether-colors.css");
+
 @define-color dark-9 rgba(24, 24, 27, 1);
 @define-color dark-8 rgba(39, 39, 42, 1);
 @define-color dark-7 rgba(63, 63, 70, 1);
@@ -11,8 +12,8 @@
 }
 
 window#waybar {
-  background-color: rgba(24, 24, 27, 0.8);
-  color: white;
+  background-color: alpha(@background, 0.8);
+  color: @foreground;
 }
 
 #custom-powermenu {
@@ -47,7 +48,7 @@ window#waybar {
 }
 
 #workspaces button.active {
-  color: white;
+  color: @highlight;
 }
 
 #workspaces button.urgent {
