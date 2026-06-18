@@ -16,12 +16,30 @@
   "modules-right": [
     "hyprland/submap",
     "tray",
+    "custom/notification",
     "group/volume",
     "bluetooth",
     "network",
+    "custom/audio-output",
     "cpu",
     "memory"
   ],
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󰂚",
+      "none": "󰂜",
+      "dnd-notification": "󰂛",
+      "dnd-none": "󰂛"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
   "tray": {
     "spacing": 8,
     "icon-size": 20
@@ -34,6 +52,12 @@
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     "on-click": "ghostty --title=bluetui -e bluetui"
+  },
+  "custom/audio-output": {
+    "exec": "~/.config/waybar/custom_modules/audio-output.sh",
+    "interval": 5,
+    "on-click": "~/.config/waybar/custom_modules/audio-output.sh --select",
+    "tooltip": false
   },
   "cpu": {
     "interval": 10,
@@ -60,7 +84,7 @@
     "on-click": "ghostty --title=nmtui -e nmtui"
   },
   "clock": {
-    "format": "󰥔 {:%a, %d. %b %I:%M %p}",
+    "format": "{:%a, %d. %b %I:%M %p}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "format": {

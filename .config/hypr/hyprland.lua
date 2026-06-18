@@ -57,7 +57,7 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("systemctl --user start xdg-desktop-portal-hyprland")
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("waybar")
-    hl.exec_cmd("mako")
+    hl.exec_cmd("swaync")
     hl.exec_cmd("~/.config/waybar/custom_modules/aether-watch.sh")
 end)
 
@@ -131,8 +131,8 @@ hl.config({
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
-        active_opacity   = 1.0,
-        inactive_opacity = 0.9,
+        active_opacity   = 0.95,
+        inactive_opacity = 0.8,
 
         shadow = {
             enabled      = true,

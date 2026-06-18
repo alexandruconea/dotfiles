@@ -18,7 +18,7 @@ window#waybar {
 
 #custom-powermenu {
   color: @highlight;
-  font-size: 18px;
+  font-size: 14px;
   padding: 0 10px 0 8px;
   margin: 0;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
@@ -38,7 +38,7 @@ window#waybar {
   background: transparent;
   border-radius: 0;
   color: rgba(255, 255, 255, 0.65);
-  font-size: 13px;
+  font-size: 14px;
   box-shadow: none;
   border: none;
 }
@@ -114,7 +114,7 @@ window#waybar {
 }
 
 #custom-media-animation {
-  font-size: 13px;
+  font-size: 14px;
   margin-right: 10px;
 }
 
@@ -129,6 +129,32 @@ window#waybar {
 
 #tray {
   margin-right: 10px;
+}
+
+#custom-notification {
+  color: @highlight;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 3px 10px;
+  background: rgba(39, 39, 42, 0.4);
+  margin: 3px 10px 3px 0;
+}
+
+#custom-notification.none {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+#custom-notification.dnd-none,
+#custom-notification.dnd-notification {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+#custom-audio-output {
+  color: @foreground;
+  border-radius: 8px;
+  padding: 3px 10px;
+  background: rgba(39, 39, 42, 0.4);
+  margin: 3px 4px;
 }
 
 tooltip {

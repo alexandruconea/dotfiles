@@ -14,19 +14,47 @@ if [ -f "$THEME_DIR/colors.toml" ]; then
 EOF
 fi
 
+# Rofi colors
+if [ -n "$bg" ]; then
+    # Convert hex to rgba components for rofi (rofi uses hex directly)
+    bg_alpha="${bg}e6"
+    cat > "$HOME/.config/rofi/colors.rasi" << EOF
+* {
+    bg:       ${bg:-#18181b};
+    fg:       ${fg:-#ffffff};
+    accent:   ${accent:-#75f1fa};
+    bg-alpha: ${bg_alpha:-#18181be6};
+}
+EOF
+fi
+
 # Waybar CSS reload
 killall -SIGUSR2 waybar 2>/dev/null
 
-# Mako
-if [ -f "$THEME_DIR/mako.ini" ]; then
-    cp "$THEME_DIR/mako.ini" "$HOME/.config/mako/config"
-    makoctl reload 2>/dev/null
+# swaync colors
+if [ -f "$THEME_DIR/colors.toml" ]; then
+    cat > "$HOME/.config/swaync/colors.css" << EOF
+@define-color background ${bg:-#18181b};
+@define-color foreground ${fg:-#ffffff};
+@define-color highlight ${accent:-#75f1fa};
+EOF
+    swaync-client -R 2>/dev/null
 fi
 
 # Hyprland border color
 if [ -f "$THEME_DIR/hyprland.conf" ]; then
     color=$(grep 'activeBorderColor' "$THEME_DIR/hyprland.conf" | grep -oP 'rgb\(\w+\)')
     [ -n "$color" ] && hyprctl eval "hl.config({general = {[\"col.active_border\"] = \"$color\"}})" 2>/dev/null
+fi
+
+# Hyprlock colors
+if [ -n "$accent" ]; then
+    # Convert hex #rrggbb to rgba(r, g, b, a) for hyprlock
+    r=$((16#${accent:1:2}))
+    g=$((16#${accent:3:2}))
+    b=$((16#${accent:5:2}))
+    sed -i "s|check_color = .*|check_color = rgba($r, $g, $b, 0.8)|" "$HOME/.config/hypr/hyprlock.conf"
+    sed -i "s|outer_color = .*|outer_color = rgba($r, $g, $b, 0.3)|" "$HOME/.config/hypr/hyprlock.conf"
 fi
 
 # Wallpaper

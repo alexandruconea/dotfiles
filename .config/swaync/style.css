@@ -1,0 +1,132 @@
+@import url("file:///home/alex/.config/swaync/colors.css");
+
+* {
+  font-family: JetBrainsMono Nerd Font Propo;
+  font-size: 13px;
+}
+
+.notification-row {
+  outline: none;
+  margin: 4px 0;
+}
+
+.notification-row:focus,
+.notification-row:hover {
+  background: transparent;
+}
+
+.notification {
+  border-radius: 12px;
+  margin: 4px 8px;
+  padding: 0;
+  background: alpha(@background, 0.95);
+  border: 1px solid alpha(@highlight, 0.35);
+}
+
+.notification-content {
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.notification-default-action,
+.notification-action {
+  padding: 4px;
+  border-radius: 8px;
+  color: @foreground;
+  background: transparent;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+  background: alpha(@highlight, 0.15);
+}
+
+.summary {
+  font-size: 14px;
+  font-weight: bold;
+  color: @foreground;
+}
+
+.time {
+  font-size: 11px;
+  color: alpha(@foreground, 0.5);
+}
+
+.body {
+  font-size: 12px;
+  color: alpha(@foreground, 0.85);
+}
+
+.control-center {
+  border-radius: 12px;
+  background: alpha(@background, 0.97);
+  border: 1px solid alpha(@highlight, 0.25);
+  padding: 8px;
+  min-height: 0;
+}
+
+.control-center-list {
+  background: transparent;
+  min-height: 0;
+}
+
+.control-center-list-placeholder {
+  color: alpha(@foreground, 0.4);
+  font-size: 14px;
+}
+
+.blank-window {
+  background: transparent;
+}
+
+.widget-title {
+  color: @foreground;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 4px;
+}
+
+.widget-title > button {
+  background: alpha(@highlight, 0.15);
+  border: none;
+  border-radius: 8px;
+  color: @foreground;
+  padding: 4px 10px;
+}
+
+.widget-title > button:hover {
+  background: alpha(@highlight, 0.3);
+}
+
+.widget-mpris {
+  background: alpha(@highlight, 0.06);
+  border-radius: 10px;
+  margin: 4px 0;
+  padding: 8px;
+  border: 1px solid alpha(@highlight, 0.15);
+}
+
+.widget-mpris-player {
+  padding: 4px;
+}
+
+.widget-mpris-title {
+  font-weight: bold;
+  color: @foreground;
+}
+
+.widget-mpris-subtitle {
+  color: alpha(@foreground, 0.6);
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: alpha(@foreground, 0.5);
+  border-radius: 6px;
+}
+
+.close-button:hover {
+  background: rgba(227, 81, 73, 0.3);
+  color: white;
+}
