@@ -1,0 +1,31 @@
+[wallust]
+backend = "kmeans"
+color_scheme = "dark16"
+
+[templates.waybar-colors]
+template = "waybar-colors.css"
+target = "~/.config/waybar/aether-colors.css"
+
+[templates.rofi-colors]
+template = "rofi-colors.rasi"
+target = "~/.config/rofi/colors.rasi"
+
+[templates.swaync-colors]
+template = "swaync-colors.css"
+target = "~/.config/swaync/colors.css"
+
+[templates.mako]
+template = "mako.ini"
+target = "~/.config/mako/config"
+
+[templates.ghostty-colors]
+template = "ghostty-colors.conf"
+target = "~/.config/ghostty/colors.conf"
+
+[templates.gtk]
+template = "gtk.css"
+target = "~/.config/gtk-4.0/gtk.css"
+
+[templates.sddm]
+template = "sddm-aether.conf"
+target = "~/.config/wallust/sddm-aether-generated.conf"

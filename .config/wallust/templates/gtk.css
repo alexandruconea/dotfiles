@@ -1,0 +1,30 @@
+@define-color accent_color {{ color4 }};
+@define-color accent_bg_color {{ color4 }};
+@define-color accent_fg_color {{ background }};
+@define-color destructive_color #e35149;
+@define-color destructive_bg_color #e35149;
+@define-color destructive_fg_color {{ background }};
+@define-color success_color {{ color2 }};
+@define-color warning_color {{ color3 }};
+@define-color error_color {{ color1 }};
+@define-color window_bg_color {{ background }};
+@define-color window_fg_color {{ foreground }};
+@define-color view_bg_color {{ color0 }};
+@define-color view_fg_color {{ foreground }};
+@define-color headerbar_bg_color {{ color0 }};
+@define-color headerbar_fg_color {{ foreground }};
+@define-color headerbar_border_color {{ color0 }};
+@define-color sidebar_bg_color {{ color0 }};
+@define-color sidebar_fg_color {{ foreground }};
+@define-color card_bg_color {{ color0 }};
+@define-color card_fg_color {{ foreground }};
+@define-color popover_bg_color {{ color0 }};
+@define-color popover_fg_color {{ foreground }};
+@define-color dialog_bg_color {{ color0 }};
+@define-color dialog_fg_color {{ foreground }};
+@define-color shade_color rgba(0,0,0,0.36);
+@define-color scrollbar_outline_color rgba(0,0,0,0.5);
+
+* {
+  color: @window_fg_color;
+}

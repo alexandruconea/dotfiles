@@ -1,5 +1,6 @@
 {
   "layer": "top",
+  "height": 44,
   "modules-left": ["custom/powermenu", "hyprland/workspaces", "group/media"],
   "custom/powermenu": {
     "format": "  ",
@@ -7,22 +8,28 @@
     "on-click": "~/.config/waybar/custom_modules/powermenu.sh"
   },
   "hyprland/workspaces": {
-    "format": "●",
+    "format": "{icon}",
+    "format-icons": {
+      "active": "●",
+      "default": "●",
+      "empty": "○"
+    },
     "persistent-workspaces": {
       "1": [], "2": [], "3": [], "4": [], "5": []
     }
   },
-  "modules-center": ["clock"],
+  "modules-center": ["custom/weather", "clock"],
   "modules-right": [
     "hyprland/submap",
     "tray",
-    "custom/notification",
     "group/volume",
     "bluetooth",
     "network",
     "custom/audio-output",
+    "custom/gpu",
     "cpu",
-    "memory"
+    "memory",
+    "disk"
   ],
   "custom/notification": {
     "tooltip": false,
@@ -53,6 +60,12 @@
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     "on-click": "ghostty --title=bluetui -e bluetui"
   },
+  "custom/gpu": {
+    "exec": "cat /sys/class/drm/card1/device/gpu_busy_percent",
+    "format": "󰾲 {}%",
+    "interval": 3,
+    "tooltip": false
+  },
   "custom/audio-output": {
     "exec": "~/.config/waybar/custom_modules/audio-output.sh",
     "interval": 5,
@@ -71,6 +84,12 @@
     "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
     "on-click": "ghostty --title=htop -e htop"
   },
+  "disk": {
+    "interval": 60,
+    "format": "󰋊 {percentage_used}%",
+    "path": "/",
+    "tooltip-format": "{used} / {total}"
+  },
   "network": {
     "format": "󰤭",
     "format-wifi": "󰤨",
@@ -83,6 +102,14 @@
     "max-length": 50,
     "on-click": "ghostty --title=nmtui -e nmtui"
   },
+  "custom/weather": {
+    "exec": "~/.config/waybar/custom_modules/weather.sh",
+    "interval": 30,
+    "format": "{}",
+    "tooltip": false,
+    "escape": false
+  },
+
   "clock": {
     "format": "{:%a, %d. %b %I:%M %p}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",

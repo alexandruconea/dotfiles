@@ -31,14 +31,30 @@ fi
 # Waybar CSS reload
 killall -SIGUSR2 waybar 2>/dev/null
 
-# swaync colors
-if [ -f "$THEME_DIR/colors.toml" ]; then
-    cat > "$HOME/.config/swaync/colors.css" << EOF
-@define-color background ${bg:-#18181b};
-@define-color foreground ${fg:-#ffffff};
-@define-color highlight ${accent:-#75f1fa};
+# Mako colors
+if [ -n "$bg" ]; then
+    mkdir -p "$HOME/.config/mako"
+    cat > "$HOME/.config/mako/config" << EOF
+text-color=${fg:-#ffffff}
+border-color=${accent:-#75f1fa}
+background-color=${bg:-#18181b}
+width=420
+height=110
+padding=10
+border-size=2
+font=Liberation Sans 11
+anchor=top-right
+outer-margin=20
+default-timeout=5000
+max-icon-size=32
+[app-name=Spotify]
+invisible=1
+[mode=do-not-disturb]
+invisible=true
+[mode=do-not-disturb app-name=notify-send]
+invisible=false
 EOF
-    swaync-client -R 2>/dev/null
+    makoctl reload 2>/dev/null
 fi
 
 # Hyprland border color
@@ -62,6 +78,7 @@ wallpaper=$(ls "$THEME_DIR/backgrounds/"*.{jpg,png,webp} 2>/dev/null | head -1)
 if [ -n "$wallpaper" ]; then
     WAYLAND_DISPLAY=wayland-1 awww img "$wallpaper" --transition-type fade --transition-duration 1 2>/dev/null
     sed -i "s|^    path = .*|    path = $wallpaper|" "$HOME/.config/hypr/hyprlock.conf"
+    cp "$wallpaper" /usr/share/sddm/themes/sddm-astronaut-theme/Backgrounds/aether.jpg 2>/dev/null
 fi
 
 # Ghostty (update color palette)

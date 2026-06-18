@@ -38,7 +38,7 @@ hl.monitor({
 -- Set programs that you use
 local terminal    = "ghostty"
 local fileManager = "nautilus"
-local menu        = "rofi -show drun -show-icons"
+local menu        = "rofi -show drun -show-icons -theme ~/.config/rofi/launcher.rasi"
 local music = 'spotify'
 local notion = 'firefox'
 
@@ -55,10 +55,11 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY")
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland DISPLAY")
     hl.exec_cmd("systemctl --user start xdg-desktop-portal-hyprland")
+    hl.exec_cmd("/usr/lib/xdg-desktop-portal")
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("waybar")
-    hl.exec_cmd("swaync")
-    hl.exec_cmd("~/.config/waybar/custom_modules/aether-watch.sh")
+    hl.exec_cmd("mako")
+    hl.exec_cmd("~/.config/waybar/custom_modules/wallust-apply.sh ~/.config/wallust/last-wallpaper 2>/dev/null || true")
 end)
 
 
@@ -287,12 +288,12 @@ hl.bind(mainMod .. " + SHIFT + F",     hl.dsp.exec_cmd("firefox"))
 hl.bind(mainMod .. " + SHIFT + C",     hl.dsp.exec_cmd("code"))
 local closeWindowBind = hl.bind(mainMod .. " + W", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu))
-hl.bind("CTRL + Space",        hl.dsp.exec_cmd("~/.config/waybar/custom_modules/powermenu.sh"))
+hl.bind("SUPER + SHIFT + Space", hl.dsp.exec_cmd("~/.config/waybar/custom_modules/powermenu.sh"))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
@@ -343,6 +344,7 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 -- Screenshots (grimblast)
 hl.bind(mainMod .. " + P",          hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/grimblast copy area"))
 hl.bind(mainMod .. " + SHIFT + P",  hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/grimblast copy screen"))
+hl.bind(mainMod .. " + grave",      hl.dsp.exec_cmd("env GDK_BACKEND=x11 GDK_SCALE=2 waypaper"))
 
 
 --------------------------------
