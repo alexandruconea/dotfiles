@@ -8,7 +8,7 @@ chosen=$(echo -e "$options" | rofi -dmenu \
     -theme-str 'listview { lines: 5; }')
 
 case "$chosen" in
-    " Lock")    hyprlock ;;
+    " Lock")    pkill rofi; sleep 0.5; hyprlock ;;
     " Logout")  hyprctl dispatch exit ;;
     " Sleep")   systemctl suspend ;;
     " Restart") systemctl reboot ;;

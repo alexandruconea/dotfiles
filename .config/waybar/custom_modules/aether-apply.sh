@@ -31,7 +31,10 @@ fi
 
 # Wallpaper
 wallpaper=$(ls "$THEME_DIR/backgrounds/"*.{jpg,png,webp} 2>/dev/null | head -1)
-[ -n "$wallpaper" ] && WAYLAND_DISPLAY=wayland-1 awww img "$wallpaper" --transition-type fade --transition-duration 1 2>/dev/null
+if [ -n "$wallpaper" ]; then
+    WAYLAND_DISPLAY=wayland-1 awww img "$wallpaper" --transition-type fade --transition-duration 1 2>/dev/null
+    sed -i "s|^    path = .*|    path = $wallpaper|" "$HOME/.config/hypr/hyprlock.conf"
+fi
 
 # Ghostty (update color palette)
 if [ -f "$THEME_DIR/ghostty.conf" ]; then
