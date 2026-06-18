@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Isolated Tech
+Comment=EVE Online Companion App
+Exec=env ELECTRON_OZONE_PLATFORM_HINT=wayland /home/alex/Applications/Isolated-Tech-2.0.19.AppImage
+Icon=isolated-tech
+Type=Application
+Categories=Game;Utility;
+Keywords=eve;online;companion;
