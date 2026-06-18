@@ -1,0 +1,11 @@
+background-color=#18181bcc
+text-color=#ffffff
+border-color=#75f1fa
+border-radius=8
+border-size=1
+font=JetBrainsMono Nerd Font Propo 11
+width=350
+height=100
+padding=12
+margin=10
+default-timeout=5000
