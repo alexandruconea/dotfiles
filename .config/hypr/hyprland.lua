@@ -57,7 +57,7 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("systemctl --user start xdg-desktop-portal-hyprland")
     hl.exec_cmd("/usr/lib/xdg-desktop-portal")
     hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("waybar")
+    hl.exec_cmd("sleep 1 && WAYLAND_DISPLAY=wayland-1 waybar")
     hl.exec_cmd("mako")
     hl.exec_cmd("~/.config/waybar/custom_modules/wallust-apply.sh ~/.config/wallust/last-wallpaper 2>/dev/null || true")
 end)
@@ -396,3 +396,12 @@ hl.window_rule({
     move  = "20 monitor_h-120",
     float = true,
 })
+
+-- Isolated Tech - fără blur și transparență
+hl.window_rule({
+    name     = "isolated-tech-opaque",
+    match    = { class = "isolated-tech" },
+    opacity  = "1.0 override 1.0 override",
+    no_blur  = true,
+})
+
