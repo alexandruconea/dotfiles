@@ -1,15 +1,15 @@
 /* wallust-colors-start */
-@define-color background #101010;
-@define-color foreground #FAFAFA;
-@define-color highlight #383838;
+@define-color background #19191C;
+@define-color foreground #ffffff;
+@define-color highlight  #ffffff;
 /* wallust-colors-end */
 
 /* wallust-palette-start */
-@define-color w-warm    #F2F2F2;
-@define-color w-light   #F0F0F0;
-@define-color w-neutral #BDBDBD;
-@define-color w-muted   #6F6F6F;
-@define-color w-dark    #474747;
+@define-color w-warm    #ffffff;
+@define-color w-light   #ffffff;
+@define-color w-neutral #cccccc;
+@define-color w-muted   #888888;
+@define-color w-dark    #555555;
 /* wallust-palette-end */
 
 @define-color dark-9 rgba(24, 24, 27, 1);
@@ -52,7 +52,7 @@ window#waybar {
   background: transparent;
   border-radius: 0;
   color: rgba(255, 255, 255, 0.65);
-  font-size: 16px;
+  font-size: 26px;
   box-shadow: none;
   border: none;
 }
@@ -88,6 +88,10 @@ window#waybar {
   padding: 3px 8px;
   background: rgba(39, 39, 42, 0.4);
   margin: 3px 10px 3px 0px;
+}
+
+#cpu, #memory, #disk, #custom-gpu {
+  min-width: 72px;
 }
 
 #submap,
@@ -145,7 +149,18 @@ window#waybar {
 }
 
 #tray {
-  margin-right: 10px;
+  margin-right: 4px;
+}
+
+#custom-tray-toggle {
+  color: @foreground;
+  font-size: 18px;
+  padding: 0 8px;
+  margin: 3px 4px 3px 0;
+}
+
+#custom-tray-toggle:hover {
+  color: @highlight;
 }
 
 #custom-notification {
@@ -199,6 +214,17 @@ tooltip label {
   padding: 4px 10px;
 }
 
+/* Palette Toggle */
+#custom-palette-toggle {
+  font-size: 18px;
+  padding: 0 10px;
+  border-radius: 8px;
+  margin: 3px 4px 3px 0;
+}
+
+#custom-palette-toggle.enabled  { color: @highlight; }
+#custom-palette-toggle.disabled { color: @w-muted; }
+
 /* Power Profile */
 #custom-power-profile {
   font-size: 18px;
@@ -214,7 +240,7 @@ tooltip label {
 
 /* Weather Icon */
 #custom-weather-icon {
-  font-size: 30px;
+  font-size: 26px;
   padding: 0 8px;
   border-radius: 8px;
   margin: 0px 6px 0px 12px;

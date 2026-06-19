@@ -12,11 +12,25 @@ IMAGE=$(readlink -f "$1" 2>/dev/null)
 # Salvează ultimul wallpaper pentru boot (symlink la fișierul real)
 ln -sf "$IMAGE" "$HOME/.config/wallust/last-wallpaper"
 
+# Setează wallpaper
+awww img "$IMAGE" --transition-type fade --transition-duration 1 2>/dev/null
+
+# Actualizează hyprlock wallpaper (mereu, indiferent de paletă)
+sed -i "s|^    path = .*|    path = $IMAGE|" "$HOME/.config/hypr/hyprlock.conf"
+
+# Restore saved power profile
+SAVED_PROFILE=$(cat "$HOME/.local/state/power-profile" 2>/dev/null || echo "balanced")
+sudo /usr/local/bin/set-power-profile "$SAVED_PROFILE" 2>/dev/null
+
+# Dacă paleta e dezactivată, ne oprim aici
+WALLUST_ENABLED=$(cat "$HOME/.local/state/wallust-enabled" 2>/dev/null || echo "enabled")
+if [ "$WALLUST_ENABLED" != "enabled" ]; then
+    echo "Palette disabled, skipping color updates"
+    exit 0
+fi
+
 # Generează culorile și template-urile
 wallust run "$IMAGE" -q
-
-# Setează wallpaper (moștenește WAYLAND_DISPLAY din mediu)
-awww img "$IMAGE" --transition-type fade --transition-duration 1 2>/dev/null
 
 # Alege culoarea cu cea mai mare saturație din întreaga paletă wallust
 bg=$(grep 'background' ~/.config/waybar/aether-colors.css | grep -oP '#[0-9a-fA-F]+' | head -1)
@@ -70,17 +84,13 @@ if [ -f "$GHOST" ]; then
     [ -n "$c3" ] && sed -i '/[[:space:]]*"days"[^s]/ s|color='"'"'[^'"'"']*'"'"'|color='"'"''"$c3"''"'"'|' "$CONFIG"
 fi
 
-# Restore saved power profile
-SAVED_PROFILE=$(cat "$HOME/.local/state/power-profile" 2>/dev/null || echo "balanced")
-sudo /usr/local/bin/set-power-profile "$SAVED_PROFILE" 2>/dev/null
-
 # Reload waybar CSS
 pkill -SIGUSR2 waybar 2>/dev/null
 
 # Reîncarcă mako
 makoctl reload 2>/dev/null
 
-# Actualizează hyprlock culori și wallpaper
+# Actualizează hyprlock culori
 accent="$hl"
 if [ -n "$accent" ]; then
     r=$((16#${accent:1:2}))
@@ -89,7 +99,6 @@ if [ -n "$accent" ]; then
     sed -i "s|check_color = .*|check_color = rgba($r, $g, $b, 0.8)|" "$HOME/.config/hypr/hyprlock.conf"
     sed -i "s|outer_color = .*|outer_color = rgba($r, $g, $b, 0.3)|" "$HOME/.config/hypr/hyprlock.conf"
 fi
-sed -i "s|^    path = .*|    path = $IMAGE|" "$HOME/.config/hypr/hyprlock.conf"
 
 # GTK theme
 mkdir -p "$HOME/.config/gtk-3.0"

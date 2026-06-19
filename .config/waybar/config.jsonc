@@ -8,20 +8,12 @@
     "on-click": "~/.config/waybar/custom_modules/powermenu.sh"
   },
   "hyprland/workspaces": {
-    "format": "{icon}",
-    "format-icons": {
-      "active": "●",
-      "default": "●",
-      "empty": "○"
-    },
-    "persistent-workspaces": {
-      "1": [], "2": [], "3": [], "4": [], "5": []
-    }
+    "format": "{id}"
   },
   "modules-center": ["custom/weather-icon", "clock"],
   "modules-right": [
     "hyprland/submap",
-    "tray",
+    "group/tray-drawer",
     "group/volume",
     "bluetooth",
     "network",
@@ -30,6 +22,7 @@
     "cpu",
     "memory",
     "disk",
+    "custom/palette-toggle",
     "custom/power-profile"
   ],
   "custom/notification": {
@@ -47,6 +40,18 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
+  },
+  "group/tray-drawer": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
+    },
+    "modules": ["custom/tray-toggle", "tray"]
+  },
+  "custom/tray-toggle": {
+    "format": "󰅀",
+    "tooltip": false
   },
   "tray": {
     "spacing": 8,
@@ -92,6 +97,16 @@
     "tooltip-format": "{used} / {total}"
   },
 
+  "custom/palette-toggle": {
+    "exec": "~/.config/waybar/custom_modules/palette-toggle.sh",
+    "return-type": "json",
+    "interval": "once",
+    "signal": 9,
+    "on-click": "~/.config/waybar/custom_modules/palette-toggle.sh --toggle",
+    "tooltip": true,
+    "escape": false
+  },
+
   "custom/power-profile": {
     "exec": "~/.config/waybar/custom_modules/power-profile.sh",
     "return-type": "json",
@@ -129,15 +144,15 @@
       "format": {
         "months":   "<span color='#FBF5E9'><b>{}</b></span>",
         "years":    "<span color='#FBF5E9'><b>{}</b></span>",
-        "weekdays": "<span color='#383838'><b>{}</b></span>",
-        "days":     "<span color='#6F6F6F'>{}</span>",
-        "today":    "<span color='#F2F2F2'><b><u>{}</u></b></span>",
-        "weekend":  "<span color='#F0F0F0'>{}</span>"
+        "weekdays": "<span color='#703F2B'><b>{}</b></span>",
+        "days":     "<span color='#606D7B'>{}</span>",
+        "today":    "<span color='#C9D19B'><b><u>{}</u></b></span>",
+        "weekend":  "<span color='#DCE0C5'>{}</span>"
       }
     }
   },
   "pulseaudio": {
-    "format": "{volume}% {icon}",
+    "format": "{icon}",
     "format-muted": "󰖁",
     "format-icons": {
       "default": ["󰕿", "󰕾"]
@@ -153,6 +168,10 @@
   },
   "group/volume": {
     "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": true
+    },
     "modules": ["pulseaudio", "pulseaudio/slider"]
   },
   "group/media": {
