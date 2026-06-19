@@ -16,11 +16,11 @@ read_palette() {
     local ghost="$HOME/.config/ghostty/colors.conf"
     local aether="$HOME/.config/waybar/aether-colors.css"
     if [ -f "$ghost" ]; then
-        export P_WARM=$(grep 'palette = 6='  "$ghost" | grep -oP '#[0-9a-fA-F]+')
-        export P_LIGHT=$(grep 'palette = 7=' "$ghost" | grep -oP '#[0-9a-fA-F]+')
+        export P_WARM=$(grep 'palette = 6='    "$ghost" | grep -oP '#[0-9a-fA-F]+')
+        export P_LIGHT=$(grep 'palette = 7='   "$ghost" | grep -oP '#[0-9a-fA-F]+')
         export P_NEUTRAL=$(grep 'palette = 5=' "$ghost" | grep -oP '#[0-9a-fA-F]+')
-        export P_MUTED=$(grep 'palette = 3='  "$ghost" | grep -oP '#[0-9a-fA-F]+')
-        export P_DARK=$(grep 'palette = 2='  "$ghost" | grep -oP '#[0-9a-fA-F]+')
+        export P_MUTED=$(grep 'palette = 3='   "$ghost" | grep -oP '#[0-9a-fA-F]+')
+        export P_DARK=$(grep 'palette = 2='    "$ghost" | grep -oP '#[0-9a-fA-F]+')
     fi
     [ -f "$aether" ] && export P_HL=$(grep 'highlight' "$aether" | grep -oP '#[0-9a-fA-F]+' | head -1)
     export P_WARM=${P_WARM:-#DCB22B}
@@ -31,18 +31,17 @@ read_palette() {
     export P_HL=${P_HL:-#9E8113}
 }
 
-build_output() {
-    fetch_weather
-    [ ! -f "$CACHE" ] && echo '{"text":"?","class":"unknown","tooltip":"Weather unavailable"}' && return
+fetch_weather
+[ ! -f "$CACHE" ] && echo '{"text":"󰖑","class":"unknown","tooltip":"Weather unavailable"}' && exit 0
 
-    python3 - "$CACHE" "$1" <<'PYEOF'
+read_palette
+
+python3 - "$CACHE" <<'PYEOF'
 import sys, json, os
 from datetime import datetime
 
 with open(sys.argv[1]) as f:
     data = json.load(f)
-
-frame_idx = int(sys.argv[2])
 
 cur  = data['current_condition'][0]
 area = data['nearest_area'][0]
@@ -60,7 +59,6 @@ vis      = cur['visibility']
 city    = area['areaName'][0]['value']
 country = area['country'][0]['value']
 
-# Wallust palette colors
 c_warm    = os.environ.get('P_WARM',    '#DCB22B')
 c_light   = os.environ.get('P_LIGHT',   '#E5D08C')
 c_neutral = os.environ.get('P_NEUTRAL', '#A4A4A1')
@@ -73,38 +71,36 @@ SNOWY  = {317,320,323,326,329,332,335,338,350,362,365,374,377}
 STORMY = {386,389,392,395}
 
 WEATHER = {
-    113: ('sunny',         ['✦','✧','✦','✶'], c_warm),
-    116: ('partly-cloudy', ['◑','◒','◐','◓'], c_light),
-    119: ('cloudy',        ['●','◉','●','○'], c_neutral),
-    122: ('cloudy',        ['●','◉','●','○'], c_neutral),
-    143: ('foggy',         ['░','▒','░','▒'], c_muted),
-    248: ('foggy',         ['░','▒','░','▒'], c_muted),
-    260: ('foggy',         ['░','▒','░','▒'], c_muted),
+    113: ('sunny',         '󰖙', c_warm),
+    116: ('partly-cloudy', '󰖕', c_light),
+    119: ('cloudy',        '󰖜', c_neutral),
+    122: ('cloudy',        '󰖜', c_neutral),
+    143: ('foggy',         '󰖑', c_muted),
+    248: ('foggy',         '󰖑', c_muted),
+    260: ('foggy',         '󰖑', c_muted),
 }
 
 if code in WEATHER:
-    cls, frames, color = WEATHER[code]
+    cls, icon, color = WEATHER[code]
 elif code in RAINY:
-    cls, frames, color = 'rainy',  ['╎','┊','╎','┆'], c_hl
+    cls, icon, color = 'rainy',  '󰖗', c_hl
 elif code in SNOWY:
-    cls, frames, color = 'snowy',  ['❄','❅','❆','❄'], c_light
+    cls, icon, color = 'snowy',  '󰼶', c_light
 elif code in STORMY:
-    cls, frames, color = 'stormy', ['↯','⌁','↯','⚡'], c_dark
+    cls, icon, color = 'stormy', '󰙾', c_dark
 else:
-    cls, frames, color = 'cloudy', ['●','◉','●','○'], c_neutral
-
-icon = frames[frame_idx % 4]
+    cls, icon, color = 'cloudy', '󰖜', c_neutral
 
 def code_icon(c):
     c = int(c)
-    if c == 113: return '✦'
-    if c == 116: return '◑'
-    if c in (119,122): return '●'
-    if c in (143,248,260): return '░'
-    if c in RAINY: return '╎'
-    if c in SNOWY: return '❄'
-    if c in STORMY: return '↯'
-    return '●'
+    if c == 113: return '󰖙'
+    if c == 116: return '󰖕'
+    if c in (119,122): return '󰖜'
+    if c in (143,248,260): return '󰖑'
+    if c in RAINY: return '󰖗'
+    if c in SNOWY: return '󰼶'
+    if c in STORMY: return '󰙾'
+    return '󰖜'
 
 DAYS_EN = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 sep   = f'<span color="{c_muted}">──────────────────</span>'
@@ -146,12 +142,3 @@ for i, day in enumerate(days[:3]):
 
 print(json.dumps({'text': icon, 'class': cls, 'tooltip': '\n'.join(lines)}))
 PYEOF
-}
-
-read_palette
-i=0
-while true; do
-    build_output $i
-    i=$(( i + 1 ))
-    sleep 2
-done

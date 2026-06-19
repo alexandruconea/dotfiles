@@ -1,6 +1,6 @@
 {
   "layer": "top",
-  "height": 24,
+  "height": 38,
   "modules-left": ["custom/powermenu", "hyprland/workspaces", "group/media"],
   "custom/powermenu": {
     "format": "  ",
@@ -116,6 +116,7 @@
   "custom/weather-icon": {
     "exec": "~/.config/waybar/custom_modules/weather-icon.sh",
     "return-type": "json",
+    "interval": 1800,
     "tooltip": true,
     "escape": false
   },
@@ -128,10 +129,10 @@
       "format": {
         "months":   "<span color='#FBF5E9'><b>{}</b></span>",
         "years":    "<span color='#FBF5E9'><b>{}</b></span>",
-        "weekdays": "<span color='#FDC46C'><b>{}</b></span>",
-        "days":     "<span color='#744F33'>{}</span>",
-        "today":    "<span color='#FDC46C'><b><u>{}</u></b></span>",
-        "weekend":  "<span color='#F6D9AD'>{}</span>"
+        "weekdays": "<span color='#383838'><b>{}</b></span>",
+        "days":     "<span color='#6F6F6F'>{}</span>",
+        "today":    "<span color='#F2F2F2'><b><u>{}</u></b></span>",
+        "weekend":  "<span color='#F0F0F0'>{}</span>"
       }
     }
   },

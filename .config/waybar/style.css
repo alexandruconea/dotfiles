@@ -1,15 +1,15 @@
 /* wallust-colors-start */
-@define-color background #1F1D1D;
-@define-color foreground #FEEACC;
-@define-color highlight #FDC46C;
+@define-color background #101010;
+@define-color foreground #FAFAFA;
+@define-color highlight #383838;
 /* wallust-colors-end */
 
 /* wallust-palette-start */
-@define-color w-warm    #FDC46C;
-@define-color w-light   #F6D9AD;
-@define-color w-neutral #B1874C;
-@define-color w-muted   #744F33;
-@define-color w-dark    #22373B;
+@define-color w-warm    #F2F2F2;
+@define-color w-light   #F0F0F0;
+@define-color w-neutral #BDBDBD;
+@define-color w-muted   #6F6F6F;
+@define-color w-dark    #474747;
 /* wallust-palette-end */
 
 @define-color dark-9 rgba(24, 24, 27, 1);
@@ -26,6 +26,7 @@
 window#waybar {
   background-color: alpha(@background, 0.8);
   color: @foreground;
+  min-height: 38px;
 }
 
 
@@ -213,46 +214,19 @@ tooltip label {
 
 /* Weather Icon */
 #custom-weather-icon {
-  font-size: 20px;
+  font-size: 30px;
   padding: 0 8px;
   border-radius: 8px;
-  margin: 3px 6px 3px 12px;
+  margin: 0px 6px 0px 12px;
 }
 
-#custom-weather-icon.sunny {
-  color: @w-warm;
-  background: alpha(@w-warm, 0.12);
-}
-
-#custom-weather-icon.partly-cloudy {
-  color: @w-light;
-  background: alpha(@w-light, 0.08);
-}
-
-#custom-weather-icon.cloudy {
-  color: @w-neutral;
-  background: alpha(@w-neutral, 0.08);
-}
-
-#custom-weather-icon.foggy {
-  color: @w-muted;
-  background: alpha(@w-muted, 0.08);
-}
-
-#custom-weather-icon.rainy {
-  color: @highlight;
-  background: alpha(@highlight, 0.12);
-}
-
-#custom-weather-icon.snowy {
-  color: @w-light;
-  background: alpha(@w-light, 0.1);
-}
-
-#custom-weather-icon.stormy {
-  color: @w-dark;
-  background: alpha(@w-dark, 0.15);
-}
+#custom-weather-icon.sunny        { color: @w-warm; }
+#custom-weather-icon.partly-cloudy { color: @w-light; }
+#custom-weather-icon.cloudy        { color: @w-neutral; }
+#custom-weather-icon.foggy         { color: @w-muted; }
+#custom-weather-icon.rainy         { color: @highlight; }
+#custom-weather-icon.snowy         { color: @w-light; }
+#custom-weather-icon.stormy        { color: @w-dark; }
 
 #custom-weather-icon.unknown {
   color: @w-muted;
