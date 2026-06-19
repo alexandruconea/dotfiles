@@ -1,0 +1,30 @@
+#!/bin/bash
+# Sets AMD CPU EPP (Energy Performance Preference) directly via sysfs
+
+case "$1" in
+    performance)
+        EPP="performance"
+        GOV="performance"
+        ;;
+    balanced)
+        EPP="balance_performance"
+        GOV="powersave"
+        ;;
+    power-saver)
+        EPP="power"
+        GOV="powersave"
+        ;;
+    *)
+        echo "Usage: $0 <performance|balanced|power-saver>"
+        exit 1
+        ;;
+esac
+
+FAILED=0
+for policy in /sys/devices/system/cpu/cpufreq/policy*/; do
+    # Change governor first, then EPP
+    echo "$GOV" > "$policy/scaling_governor" 2>/dev/null || FAILED=1
+    echo "$EPP" > "$policy/energy_performance_preference" 2>/dev/null || FAILED=1
+done
+
+exit $FAILED

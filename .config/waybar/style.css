@@ -1,8 +1,16 @@
 /* wallust-colors-start */
-@define-color background #0F1011;
-@define-color foreground #EDF3F3;
-@define-color highlight #898674;
+@define-color background #1F1D1D;
+@define-color foreground #FEEACC;
+@define-color highlight #FDC46C;
 /* wallust-colors-end */
+
+/* wallust-palette-start */
+@define-color w-warm    #FDC46C;
+@define-color w-light   #F6D9AD;
+@define-color w-neutral #B1874C;
+@define-color w-muted   #744F33;
+@define-color w-dark    #22373B;
+/* wallust-palette-end */
 
 @define-color dark-9 rgba(24, 24, 27, 1);
 @define-color dark-8 rgba(39, 39, 42, 1);
@@ -12,7 +20,7 @@
 
 * {
   font-family: JetBrainsMono Nerd Font Propo;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 window#waybar {
@@ -20,16 +28,10 @@ window#waybar {
   color: @foreground;
 }
 
-#custom-weather {
-  margin-right: 16px;
-  color: @foreground;
-  font-size: 18px;
-  margin-top: 0px;
-}
 
 #custom-powermenu {
   color: @highlight;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0 10px 0 8px;
   margin: 0;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
@@ -49,7 +51,7 @@ window#waybar {
   background: transparent;
   border-radius: 0;
   color: rgba(255, 255, 255, 0.65);
-  font-size: 18px;
+  font-size: 16px;
   box-shadow: none;
   border: none;
 }
@@ -79,7 +81,8 @@ window#waybar {
 #memory,
 #volume,
 #disk,
-#custom-gpu {
+#custom-gpu,
+#custom-power-profile {
   border-radius: 8px;
   padding: 3px 8px;
   background: rgba(39, 39, 42, 0.4);
@@ -127,7 +130,7 @@ window#waybar {
 }
 
 #custom-media-animation {
-  font-size: 18px;
+  font-size: 16px;
   margin-right: 10px;
 }
 
@@ -137,7 +140,7 @@ window#waybar {
 
 #custom-media-time {
   color: @dark-5;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 #tray {
@@ -146,7 +149,7 @@ window#waybar {
 
 #custom-notification {
   color: @highlight;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 8px;
   padding: 3px 10px;
   background: rgba(39, 39, 42, 0.4);
@@ -171,10 +174,86 @@ window#waybar {
 }
 
 tooltip {
-  background: @dark-9;
-  border-radius: 5px;
+  background: rgba(18, 18, 20, 0.97);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 4px;
 }
 
 tooltip label {
   color: white;
+  font-size: 14px;
+  padding: 2px 6px;
+}
+
+#clock tooltip {
+  background: rgba(18, 18, 20, 0.97);
+  border-radius: 10px;
+  border: 1px solid rgba(104, 52, 50, 0.4);
+  padding: 6px;
+}
+
+#clock tooltip label {
+  font-size: 13px;
+  padding: 4px 10px;
+}
+
+/* Power Profile */
+#custom-power-profile {
+  font-size: 18px;
+  padding: 0 10px;
+  border-radius: 8px;
+  margin: 3px 4px 3px 0;
+  border: 1px solid transparent;
+}
+
+#custom-power-profile.performance { color: @w-warm; }
+#custom-power-profile.balanced    { color: @highlight; }
+#custom-power-profile.power-saver { color: @w-muted; }
+
+/* Weather Icon */
+#custom-weather-icon {
+  font-size: 20px;
+  padding: 0 8px;
+  border-radius: 8px;
+  margin: 3px 6px 3px 12px;
+}
+
+#custom-weather-icon.sunny {
+  color: @w-warm;
+  background: alpha(@w-warm, 0.12);
+}
+
+#custom-weather-icon.partly-cloudy {
+  color: @w-light;
+  background: alpha(@w-light, 0.08);
+}
+
+#custom-weather-icon.cloudy {
+  color: @w-neutral;
+  background: alpha(@w-neutral, 0.08);
+}
+
+#custom-weather-icon.foggy {
+  color: @w-muted;
+  background: alpha(@w-muted, 0.08);
+}
+
+#custom-weather-icon.rainy {
+  color: @highlight;
+  background: alpha(@highlight, 0.12);
+}
+
+#custom-weather-icon.snowy {
+  color: @w-light;
+  background: alpha(@w-light, 0.1);
+}
+
+#custom-weather-icon.stormy {
+  color: @w-dark;
+  background: alpha(@w-dark, 0.15);
+}
+
+#custom-weather-icon.unknown {
+  color: @w-muted;
 }

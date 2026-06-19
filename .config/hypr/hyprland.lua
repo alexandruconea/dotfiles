@@ -60,6 +60,7 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("sleep 1 && WAYLAND_DISPLAY=wayland-1 waybar")
     hl.exec_cmd("mako")
     hl.exec_cmd("~/.config/waybar/custom_modules/wallust-apply.sh ~/.config/wallust/last-wallpaper 2>/dev/null || true")
+    hl.exec_cmd("hypridle")
 end)
 
 
@@ -132,7 +133,7 @@ hl.config({
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
-        active_opacity   = 0.95,
+        active_opacity   = 0.97,
         inactive_opacity = 0.8,
 
         shadow = {
@@ -293,7 +294,8 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu))
-hl.bind("SUPER + SHIFT + Space", hl.dsp.exec_cmd("~/.config/waybar/custom_modules/powermenu.sh"))
+hl.bind("SUPER + Delete",    hl.dsp.exec_cmd("~/.config/waybar/custom_modules/powermenu.sh"))
+hl.bind("SUPER + I",         hl.dsp.exec_cmd("~/.config/waybar/custom_modules/idle-settings.sh"))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
@@ -395,6 +397,15 @@ hl.window_rule({
 
     move  = "20 monitor_h-120",
     float = true,
+})
+
+-- EVE Launcher - ascunde bara de loading cu titlu gol
+hl.window_rule({
+    name    = "eve-launcher-bar",
+    match   = { class = "steam_app_8500", title = "^$" },
+    float   = true,
+    opacity = "0.0 override 0.0 override",
+    no_blur = true,
 })
 
 -- Isolated Tech - fără blur și transparență

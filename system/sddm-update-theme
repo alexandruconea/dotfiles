@@ -1,0 +1,17 @@
+#!/bin/bash
+# Called by wallust-apply.sh via sudo to update SDDM theme files
+# Args: <wallpaper_path> <generated_conf_path>
+
+WALLPAPER="$1"
+CONF="$2"
+SDDM_THEME="/usr/share/sddm/themes/sddm-astronaut-theme"
+
+[ -z "$WALLPAPER" ] || [ ! -f "$WALLPAPER" ] && exit 1
+[ -z "$CONF" ] || [ ! -f "$CONF" ] && exit 1
+
+EXT="${WALLPAPER##*.}"
+
+cp "$WALLPAPER" "$SDDM_THEME/Backgrounds/aether.$EXT" || exit 1
+cp "$CONF" "$SDDM_THEME/Themes/aether.conf" || exit 1
+sed -i "s|^Background=.*|Background=\"Backgrounds/aether.$EXT\"|" \
+    "$SDDM_THEME/Themes/aether.conf"

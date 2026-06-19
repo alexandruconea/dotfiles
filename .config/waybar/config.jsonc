@@ -1,6 +1,6 @@
 {
   "layer": "top",
-  "height": 44,
+  "height": 24,
   "modules-left": ["custom/powermenu", "hyprland/workspaces", "group/media"],
   "custom/powermenu": {
     "format": "  ",
@@ -18,7 +18,7 @@
       "1": [], "2": [], "3": [], "4": [], "5": []
     }
   },
-  "modules-center": ["custom/weather", "clock"],
+  "modules-center": ["custom/weather-icon", "clock"],
   "modules-right": [
     "hyprland/submap",
     "tray",
@@ -29,7 +29,8 @@
     "custom/gpu",
     "cpu",
     "memory",
-    "disk"
+    "disk",
+    "custom/power-profile"
   ],
   "custom/notification": {
     "tooltip": false,
@@ -90,6 +91,16 @@
     "path": "/",
     "tooltip-format": "{used} / {total}"
   },
+
+  "custom/power-profile": {
+    "exec": "~/.config/waybar/custom_modules/power-profile.sh",
+    "return-type": "json",
+    "interval": 5,
+    "signal": 8,
+    "on-click": "~/.config/waybar/custom_modules/power-profile.sh --select",
+    "tooltip": true,
+    "escape": false
+  },
   "network": {
     "format": "󰤭",
     "format-wifi": "󰤨",
@@ -102,20 +113,25 @@
     "max-length": 50,
     "on-click": "ghostty --title=nmtui -e nmtui"
   },
-  "custom/weather": {
-    "exec": "~/.config/waybar/custom_modules/weather.sh",
-    "interval": 30,
-    "format": "{}",
-    "tooltip": false,
+  "custom/weather-icon": {
+    "exec": "~/.config/waybar/custom_modules/weather-icon.sh",
+    "return-type": "json",
+    "tooltip": true,
     "escape": false
   },
 
   "clock": {
     "format": "{:%a, %d. %b %I:%M %p}",
-    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
+      "on-click-right": "mode",
       "format": {
-        "today": "<span color='#75f1fa'><b>{}</b></span>"
+        "months":   "<span color='#FBF5E9'><b>{}</b></span>",
+        "years":    "<span color='#FBF5E9'><b>{}</b></span>",
+        "weekdays": "<span color='#FDC46C'><b>{}</b></span>",
+        "days":     "<span color='#744F33'>{}</span>",
+        "today":    "<span color='#FDC46C'><b><u>{}</u></b></span>",
+        "weekend":  "<span color='#F6D9AD'>{}</span>"
       }
     }
   },

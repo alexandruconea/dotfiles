@@ -22,10 +22,18 @@ cp -r .config/wallust ~/.config/
 cp -r .config/waypaper ~/.config/
 cp .config/hypr/hyprland.lua ~/.config/hypr/
 cp .config/hypr/hyprlock.conf ~/.config/hypr/
+cp .config/hypr/hypridle.conf ~/.config/hypr/
 
 echo "==> Making scripts executable..."
 chmod +x ~/.config/waybar/custom_modules/*.sh
 chmod +x ~/.config/waybar/custom_modules/media/*.sh 2>/dev/null || true
 
+echo ""
+echo "==> Manual steps required:"
+echo "    1. sudo pacman -S hypridle"
+echo "    2. sudo cp system/set-power-profile /usr/local/bin/ && sudo chmod 755 /usr/local/bin/set-power-profile"
+echo "    3. sudo cp system/sddm-update-theme /usr/local/bin/ && sudo chmod 755 /usr/local/bin/sddm-update-theme"
+echo "    4. sudo cp system/sudoers-power /etc/sudoers.d/power-profile"
+echo "    5. sudo cp system/sudoers-sddm  /etc/sudoers.d/sddm-theme"
 echo ""
 echo "Done! Log out and back in to apply all changes."
