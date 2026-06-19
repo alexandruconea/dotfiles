@@ -62,6 +62,7 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("~/.config/waybar/custom_modules/wallust-apply.sh ~/.config/wallust/last-wallpaper 2>/dev/null || true")
     hl.exec_cmd("hypridle")
     hl.exec_cmd("swayosd-server")
+    hl.exec_cmd("xrdb -merge ~/.Xresources")
 end)
 
 
@@ -288,6 +289,7 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 hl.bind(mainMod .. " + Return",         hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SHIFT + F",     hl.dsp.exec_cmd("firefox"))
 hl.bind(mainMod .. " + SHIFT + C",     hl.dsp.exec_cmd("code"))
+hl.bind(mainMod .. " + C",             hl.dsp.exec_cmd("~/.local/bin/qalculate-scaled"))
 local closeWindowBind = hl.bind(mainMod .. " + W", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"))
@@ -407,6 +409,14 @@ hl.window_rule({
     float   = true,
     opacity = "0.0 override 0.0 override",
     no_blur = true,
+})
+
+-- Qalculate - float și dimensiune mai mare
+hl.window_rule({
+    name  = "qalculate-size",
+    match = { class = "qalculate-gtk" },
+    float = true,
+    size  = "1200 800",
 })
 
 -- Isolated Tech - fără blur și transparență
